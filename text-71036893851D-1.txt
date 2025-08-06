@@ -1,0 +1,101 @@
+Test 1 Correct
+program test;
+x: integer;
+beginprogram
+x := 5 + 3;
+endprogram
+
+Output 
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+
+Variable declaration: x: integer
+Assignment operation: x := expression
+Production used: program -> program_declaration variable_declarations statement_list endprogram
+
+
+Test 2 Correct
+program mathprog;
+a: integer;
+b: integer;
+beginprogram
+a := 7 * 2;
+b := a + 10;
+endprogram
+
+
+Output
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Variable declaration: a: integer
+Variable declaration: b: integer
+Assignment operation: a := expression
+Assignment operation: b := expression
+Production used: program -> program_declaration variable_declarations statement_list endprogram
+
+
+Test 3 Correct with array
+program arraytest;
+arr: array(10) of integer;
+beginprogram
+arr := 4;
+endprogram
+
+Output
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Variable declaration: arr: integer
+Assignment operation: arr := expression
+Production used: program -> program_declaration variable_declarations statement_list endprogram
+
+Test 4 Broken 
+program exprtest;
+x: integer;
+beginprogram
+x := 5 + ;
+endprogram
+
+ Output 
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Variable declaration: x: integer
+Syntax error at line 4: incomplete expression
+Production used: program -> program_declaration variable_declarations statement_list endprogram
+
+
+
+
+Test 5 Broken 
+program test;
+x: integer
+beginprogram
+x := 5 + ;
+endprogram
+
+Output
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Syntax error at line 2: ';' expected
+Syntax error at line 4: invalid declaration
+
+
+Test 6 broken (same as the report)
+program x;
+a : integer;
+beginprogram
+a = 1 + 2 * 3;
+endprogram
+
+Output
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Variable declaration: a: integer
+Syntax error at line 4: ':=' expected
+Production used: program -> program_declaration variable_declarations statement_list endprogram
+
+Test 7 Broken (Same as the report)
+program x;
+a integer;
+beginprogram
+a := 1 + 2 * 3;
+endprogram
+
+Output
+(base) alyaaljarallah@Alyas-MacBook-Pro Desktop % ./parser < example.txt
+Syntax error at line 2: invalid declaration (missing ':')
+Assignment operation: a := expression
+Production used: program -> program_declaration variable_declarations statement_list endprogram
